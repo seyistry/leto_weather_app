@@ -26,8 +26,8 @@ function Dashboard() {
   });
 
   // Fetch weather forecast data based on geocoding results
-  const fetchtWeatherForecast = useQuery({
-    queryKey: [`forcast ${coordinate?.name}`],
+  const fetchWeatherForecast = useQuery({
+    queryKey: [`forecast ${coordinate?.name}`],
     queryFn: () =>
       getLocationWeatherForecast(coordinate?.lat, coordinate?.lon),
     enabled: !!coordinate?.lat && !!coordinate?.lon,
@@ -89,12 +89,12 @@ function Dashboard() {
           </div>
         )}
 
-        {fetchtWeatherForecast.isFetching && <p>Loading weather data...</p>}
-        {fetchtWeatherForecast.isError && <p>Error fetching weather data</p>}
-        {fetchtWeatherForecast.data && (
+        {fetchWeatherForecast.isFetching && <p>Loading weather data...</p>}
+        {fetchWeatherForecast.isError && <p>Error fetching weather data</p>}
+        {fetchWeatherForecast.data && (
           <div>
             <h2>Weather forecast:</h2>
-            <pre>{JSON.stringify(fetchtWeatherForecast.data, null, 2)}</pre>
+            <pre>{JSON.stringify(fetchWeatherForecast.data, null, 2)}</pre>
           </div>
         )}
       </div>
