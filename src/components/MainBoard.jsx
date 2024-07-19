@@ -4,10 +4,34 @@ import { UilTear } from "@iconscout/react-unicons";
 import { UilCelsius } from "@iconscout/react-unicons";
 import { formatDateTime } from "../utils/helpers";
 
+import PropTypes from "prop-types";
+
+MainBoard.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    wind: PropTypes.shape({
+      speed: PropTypes.number.isRequired,
+    }),
+    main: PropTypes.shape({
+      humidity: PropTypes.number.isRequired,
+      pressure: PropTypes.number.isRequired,
+      temp: PropTypes.number.isRequired,
+      temp_min: PropTypes.number.isRequired,
+    }),
+    weather: PropTypes.shape([{
+      icon: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+    }]).isRequired,
+    sys: PropTypes.shape({
+      country: PropTypes.string.isRequired,
+    }).isRequired,
+    dt: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
 function MainBoard({ data }) {
-  console.log(data);
   return (
-    <div className="container mx-auto max-w-[800px] bg-[#bcdfff] rounded-3xl mt-6">
+    <div className="bg-[#bcdfff] rounded-3xl">
       <div className="flex p-6 gap-4">
         <div className="flex-1">
           <div className="flex flex-row justify-between items-center">
@@ -29,20 +53,26 @@ function MainBoard({ data }) {
           <div className="flex justify-between mt-[40px]">
             <div className="flex items-center">
               <UilWind size="24" color="#24609B" />
-              <p className="ml-2 text-primary text-sm font-bold">{data.main.pressure} hPa</p>
+              <p className="ml-2 text-primary text-sm font-bold">
+                {data.main.pressure} hPa
+              </p>
             </div>
             <div className="flex items-center">
               <UilTear size="24" color="#24609B" />
-              <p className="ml-2 text-primary text-sm font-bold">{data.main.humidity}%</p>
+              <p className="ml-2 text-primary text-sm font-bold">
+                {data.main.humidity}%
+              </p>
             </div>
             <div className="flex items-center">
               <UilWind size="24" color="#24609B" />
-              <p className="ml-2 text-primary text-sm font-bold">{data.wind.speed} m/s</p>
+              <p className="ml-2 text-primary text-sm font-bold">
+                {data.wind.speed} m/s
+              </p>
             </div>
           </div>
         </div>
         <div className="hidden sm:hidden md:block flex-1 bg-white rounded-xl bg-opacity-20">
-          <p className="p-4 text-primary font-bold text-xl">Weather feels</p>
+          <p className="p-4 text-primary font-bold text-xl">Cloud feels</p>
           <div className="flex items-center justify-center">
             <img
               src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
