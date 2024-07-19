@@ -17,14 +17,14 @@ export async function getLocationGeocoding(location) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching geocoding data:", error);
+    alert("Error fetching geocoding data:", error);
   }
 }
 
 export async function getLocationCurrentWeather(lat, lon) {
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`,
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
       {
         method: "GET",
       }
@@ -37,14 +37,14 @@ export async function getLocationCurrentWeather(lat, lon) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching current weather data:", error);
+    alert("Error fetching current weather data:", error);
   }
 }
 
 export async function getLocationWeatherForecast(lat, lon) {
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`,
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
       {
         method: "GET",
       }
@@ -57,6 +57,6 @@ export async function getLocationWeatherForecast(lat, lon) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching weather forecast data:", error);
+    alert("Error fetching weather forecast data:", error);
   }
 }
