@@ -11,6 +11,7 @@ import MainBoard from "../components/MainBoard";
 import BoxCard from "../components/BoxCard";
 import WeatherForecast from "../components/WeatherForecast";
 import ErrorCard from "../components/ErrorCard";
+import Loading from "../components/Loading";
 
 function Dashboard() {
   const [query, setQuery] = useState("");
@@ -90,7 +91,7 @@ function Dashboard() {
       {/* Optionally display results */}
       <div>
         {fetchGeocoding.isLoading ? (
-          <div>Loading...</div>
+          <Loading />
         ) : !fetchGeocoding.isLoading &&
           fetchGeocoding.data &&
           fetchGeocoding.data.length === 0 ? (
@@ -98,7 +99,7 @@ function Dashboard() {
         ) : null}
       </div>
 
-      {fetchCurrentWeather.isFetching && <p>Loading weather data...</p>}
+      {fetchCurrentWeather.isFetching && <Loading />}
       {fetchCurrentWeather.isError && (
         <ErrorCard errorMessage="Error fetching current weather data" />
       )}
@@ -119,7 +120,7 @@ function Dashboard() {
         </>
       )}
 
-      {fetchWeatherForecast.isFetching && <p>Loading weather forecast...</p>}
+      {fetchWeatherForecast.isFetching && <Loading />}
       {fetchWeatherForecast.isError && (
         <ErrorCard errorMessage="Error fetching weather forecast" />
       )}
