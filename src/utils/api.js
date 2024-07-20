@@ -1,5 +1,5 @@
 // API keys
-const API_KEY = "2260693912b3e149ac97c00764339948";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 export async function getLocationGeocoding(location) {
   const regex = /\d/; // \d matches any digit character (0-9)
