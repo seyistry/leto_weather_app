@@ -8,8 +8,6 @@ export async function getLocationGeocoding(location) {
   if (regex.test(location)) {
     searchLocationBy = "zip?zip";
   }
-
-  console.log(regex.test(location));
   try {
     const response = await fetch(
       `https://api.openweathermap.org/geo/1.0/${searchLocationBy}=${location}&appid=${API_KEY}`,
@@ -25,7 +23,7 @@ export async function getLocationGeocoding(location) {
     const data = await response.json();
     return data;
   } catch (error) {
-    alert("Error fetching geocoding data:", error);
+    console.error("Error fetching geocoding data:", error);
   }
 }
 
@@ -45,7 +43,7 @@ export async function getLocationCurrentWeather(lat, lon) {
     const data = await response.json();
     return data;
   } catch (error) {
-    alert("Error fetching current weather data:", error);
+    console.error("Error fetching current weather data:", error);
   }
 }
 
@@ -65,6 +63,6 @@ export async function getLocationWeatherForecast(lat, lon) {
     const data = await response.json();
     return data;
   } catch (error) {
-    alert("Error fetching weather forecast data:", error);
+    console.error("Error fetching weather forecast data:", error);
   }
 }
