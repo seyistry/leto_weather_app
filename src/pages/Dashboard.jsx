@@ -76,17 +76,30 @@ function Dashboard() {
 
   return (
     <div className="px-4">
-      <div className="rounded-3xl my-4 focus-within:ring-2 focus-within:ring-primary-200">
-        <div className="rounded-3xl flex py-1 items-center bg-gray-50 px-4">
-          <UilSearch size="24" color="gray" />
-          <input
-            onChange={handleChange}
-            type="text"
-            name="Search location"
-            aria-label="Search location"
-            className={"bg-gray-50 w-full py-2 px-3 outline-none"}
-            placeholder="Search for places..."
-          />
+      <div
+        className={`${
+          query.length > 2 ? "" : "translate-y-[30vh] ease-in-out duration-300"
+        }`}
+      >
+        <div className={`${query.length > 0 ? "hidden" : "flex"}`}>
+          <p className="text-3xl font-bold text-primary ml-4 uppercase animate-bounce">
+            Leto
+          </p>
+          <p className="pl-2 text-gray-200">Weather app</p>
+        </div>
+
+        <div className="rounded-3xl my-4 focus-within:ring-2 focus-within:ring-primary-200">
+          <div className="rounded-3xl flex py-1 items-center bg-gray-50 px-4">
+            <UilSearch size="24" color="gray" />
+            <input
+              onChange={handleChange}
+              type="text"
+              name="Search location"
+              aria-label="Search location"
+              className={"bg-gray-50 w-full py-2 px-3 outline-none"}
+              placeholder="Search for places..."
+            />
+          </div>
         </div>
       </div>
 
