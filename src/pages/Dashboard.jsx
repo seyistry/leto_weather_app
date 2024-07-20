@@ -27,7 +27,7 @@ function Dashboard() {
   });
 
   // Get the first result from the geocoding query
-  const coordinate = fetchGeocoding.data?.[0] ?? null;
+  let coordinate = fetchGeocoding.data?.[0] ?? fetchGeocoding.data ?? null;
 
   // Fetch current weather data based on geocoding results
   const fetchCurrentWeather = useQuery({
@@ -52,7 +52,7 @@ function Dashboard() {
 
     delayQuery.current = setTimeout(() => {
       setQuery(e.target.value);
-    }, 500);
+    }, 1000);
   };
 
   // list of weather attribute
@@ -78,7 +78,7 @@ function Dashboard() {
     <div className="px-4">
       <div
         className={`${
-          query.length > 2 ? "" : "translate-y-[30vh] ease-in-out duration-300"
+          query.length > 0 ? "" : "translate-y-[30vh] ease-in-out duration-300"
         }`}
       >
         <div className={`${query.length > 0 ? "hidden" : "flex"}`}>
