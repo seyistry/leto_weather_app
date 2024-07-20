@@ -9,7 +9,8 @@ import {
 import { UilSearch } from "@iconscout/react-unicons";
 import MainBoard from "../components/MainBoard";
 import BoxCard from "../components/BoxCard";
-import { formatDateTime } from "../utils/helpers";
+import WeatherForecast from "../components/WeatherForecast";
+import ErrorCard from "../components/ErrorCard";
 
 function Dashboard() {
   const [query, setQuery] = useState("");
@@ -29,14 +30,14 @@ function Dashboard() {
   const fetchCurrentWeather = useQuery({
     queryKey: [`current ${coordinate?.name}`],
     queryFn: () => getLocationCurrentWeather(coordinate?.lat, coordinate?.lon),
-    enabled: !!coordinate?.lat && !!coordinate?.lon,
+    enabled: !!coordinate,
   });
 
   // Fetch weather forecast data based on geocoding results
   const fetchWeatherForecast = useQuery({
     queryKey: [`forecast ${coordinate?.name}`],
     queryFn: () => getLocationWeatherForecast(coordinate?.lat, coordinate?.lon),
-    enabled: !!coordinate?.lat && !!coordinate?.lon,
+    enabled: !!coordinate,
   });
 
   // Handle input change with debouncing
@@ -48,7 +49,7 @@ function Dashboard() {
 
     delayQuery.current = setTimeout(() => {
       setQuery(e.target.value);
-    }, 1000);
+    }, 500);
   };
 
   // list of weather attribute
@@ -87,8 +88,20 @@ function Dashboard() {
       </div>
 
       {/* Optionally display results */}
+      <div>
+        {fetchGeocoding.isLoading ? (
+          <div>Loading...</div>
+        ) : !fetchGeocoding.isLoading &&
+          fetchGeocoding.data &&
+          fetchGeocoding.data.length === 0 ? (
+          <ErrorCard errorMessage="No result found" />
+        ) : null}
+      </div>
+
       {fetchCurrentWeather.isFetching && <p>Loading weather data...</p>}
-      {fetchCurrentWeather.isError && <p>Error fetching weather data</p>}
+      {fetchCurrentWeather.isError && (
+        <ErrorCard errorMessage="Error fetching current weather data" />
+      )}
       {fetchCurrentWeather.data && (
         <>
           <MainBoard data={fetchCurrentWeather.data} />
@@ -103,49 +116,28 @@ function Dashboard() {
               ))}
             </div>
           </div>
-
-          <hr className="my-6" />
         </>
       )}
 
       {fetchWeatherForecast.isFetching && <p>Loading weather forecast...</p>}
-      {fetchWeatherForecast.isError && <p>Error fetching weather forecast</p>}
-
-      {fetchWeatherForecast.data && (
-        <div className="mt-4 bg-white rounded-xl p-4 shadow-lg">
-          <h2 className="text-lg font-bold mb-4">Weather Forecast</h2>
-          {fetchWeatherForecast.data.list.slice(0, 5).map((forecast, index) => (
-            <div key={index} className="mb-4 p-2 border-b last:border-b-0">
-              <p className="font-bold">{formatDateTime(forecast.dt)}</p>
-              <p>Temperature: {Math.round(forecast.main.temp)} °C</p>
-              <p>Weather: {forecast.weather[0].description}</p>
-              <p>Humidity: {forecast.main.humidity}%</p>
-              <p>Wind Speed: {forecast.wind.speed} m/s</p>
-              <p>Pressure: {forecast.main.pressure} hPa</p>
-            </div>
-          ))}
-        </div>
+      {fetchWeatherForecast.isError && (
+        <ErrorCard errorMessage="Error fetching weather forecast" />
       )}
 
-      <div>
-        {fetchGeocoding.isFetching && <p>Loading geocoding data...</p>}
-        {fetchGeocoding.isError && <p>Error fetching geocoding data</p>}
-        {fetchGeocoding.data && (
-          <div>
-            <h2>Geocoding Results:</h2>
-            <pre>{JSON.stringify(fetchGeocoding.data, null, 2)}</pre>
+      {fetchWeatherForecast.data && (
+        <>
+          <h2 className="text-lg font-bold my-4 text-primary">
+            Weather Forecast
+          </h2>
+          <div className="mt-4 bg-[#ECF3F8] rounded-xl p-4">
+            {fetchWeatherForecast.data.list
+              .slice(0, 5)
+              .map((forecast, index) => (
+                <WeatherForecast key={index} data={forecast} />
+              ))}
           </div>
-        )}
-
-        {fetchWeatherForecast.isFetching && <p>Loading weather data...</p>}
-        {fetchWeatherForecast.isError && <p>Error fetching weather data</p>}
-        {fetchWeatherForecast.data && (
-          <div>
-            <h2>Weather forecast:</h2>
-            <pre>{JSON.stringify(fetchWeatherForecast.data, null, 2)}</pre>
-          </div>
-        )}
-      </div>
+        </>
+      )}
     </div>
   );
 }
