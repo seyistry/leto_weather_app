@@ -2,9 +2,17 @@
 const API_KEY = "2260693912b3e149ac97c00764339948";
 
 export async function getLocationGeocoding(location) {
+  const regex = /\d/; // \d matches any digit character (0-9)
+  let searchLocationBy = "direct?q";
+
+  if (regex.test(location)) {
+    searchLocationBy = "zip?zip";
+  }
+
+  console.log(regex.test(location));
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=${API_KEY}`,
+      `https://api.openweathermap.org/geo/1.0/${searchLocationBy}=${location}&appid=${API_KEY}`,
       {
         method: "GET",
       }
