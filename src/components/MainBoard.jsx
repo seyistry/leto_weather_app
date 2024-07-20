@@ -18,10 +18,12 @@ MainBoard.propTypes = {
       temp: PropTypes.number.isRequired,
       temp_min: PropTypes.number.isRequired,
     }),
-    weather: PropTypes.shape([{
-      icon: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-    }]).isRequired,
+    weather: PropTypes.shape([
+      {
+        icon: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+      },
+    ]).isRequired,
     sys: PropTypes.shape({
       country: PropTypes.string.isRequired,
     }).isRequired,
@@ -39,9 +41,11 @@ function MainBoard({ data }) {
               <UilLocationPoint size="28" color="#24609B" />
               <p className="ml-2 font-bold text-xl text-primary">{`${data.name}, ${data.sys.country}`}</p>
             </div>
-            <p className="text-sm text-primary font-thin">
-              Today {formatDateTime(data.dt)}
-            </p>
+            <div className="bg-white py-1 px-4 rounded-2xl shadow-sm">
+              <p className="text-sm text-primary font-bold">
+                Today {formatDateTime(data.dt)}
+              </p>
+            </div>
           </div>
           <p className="flex items-center justify-center text-primary text-[90px] mt-[30px]">
             {Math.round(data.main.temp)}
