@@ -18,16 +18,11 @@ MainBoard.propTypes = {
       temp: PropTypes.number.isRequired,
       temp_min: PropTypes.number.isRequired,
     }),
-    weather: PropTypes.shape([
-      {
-        icon: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-      },
-    ]).isRequired,
     sys: PropTypes.shape({
       country: PropTypes.string.isRequired,
     }).isRequired,
     dt: PropTypes.number.isRequired,
+    weather: PropTypes.array.isRequired,
   }).isRequired,
 };
 

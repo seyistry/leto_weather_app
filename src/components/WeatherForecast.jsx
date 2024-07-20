@@ -12,14 +12,7 @@ WeatherForecast.propTypes = {
     wind: PropTypes.shape({
       speed: PropTypes.number.isRequired,
     }).isRequired,
-    weather: PropTypes.arrayOf(
-      PropTypes.shape([
-        {
-          icon: PropTypes.string.isRequired,
-          description: PropTypes.string.isRequired,
-        },
-      ])
-    ).isRequired,
+    weather: PropTypes.array.isRequired,
   }).isRequired,
 };
 
@@ -27,9 +20,15 @@ function WeatherForecast({ data }) {
   return (
     <div className="flex justify-between items-center mb-4 p-2 border-b last:border-b-0">
       <div>
-        <p className="font-bold text-primary text-lg">{formatDateTime(data.dt)}</p>
-        <p className="font-thin text-sm">Temperature: {Math.round(data.main.temp)} °C</p>
-        <p className="font-thin text-sm">Weather: {data.weather[0].description}</p>
+        <p className="font-bold text-primary text-lg">
+          {formatDateTime(data.dt)}
+        </p>
+        <p className="font-thin text-sm">
+          Temperature: {Math.round(data.main.temp)} °C
+        </p>
+        <p className="font-thin text-sm">
+          Weather: {data.weather[0].description}
+        </p>
         <p className="font-thin text-sm">Humidity: {data.main.humidity}%</p>
         <p className="font-thin text-sm">Wind Speed: {data.wind.speed} m/s</p>
         <p className="font-thin text-sm">Pressure: {data.main.pressure} hPa</p>
