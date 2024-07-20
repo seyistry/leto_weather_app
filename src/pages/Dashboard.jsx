@@ -59,7 +59,6 @@ function Dashboard() {
     "Max °C",
     "Min °C",
     "Cloudiness",
-    "Visibility",
   ];
 
   // Cleanup the timeout on component unmount

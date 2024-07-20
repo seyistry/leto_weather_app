@@ -15,7 +15,6 @@ BoxCard.propTypes = {
     clouds: PropTypes.shape({
       all: PropTypes.number.isRequired,
     }),
-    visibility: PropTypes.number,
   }).isRequired,
 };
 
@@ -41,10 +40,6 @@ function BoxCard({ title, data }) {
     case "Cloudiness":
       value = `${data.clouds.all}%`;
       break;
-    case "Visibility":
-      value = `${data.visibility / 1000}km`;
-      break;
-
     default:
       break;
   }
