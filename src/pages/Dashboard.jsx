@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRef, useState, useEffect } from "react";
 import {
@@ -90,26 +92,38 @@ function Dashboard() {
 
       {/* Optionally display results */}
       <div>
+        {fetchGeocoding.isError && (
+          <ErrorCard
+            data-testid="error-state"
+            errorMessage="Error fetching current weather data"
+          />
+        )}
         {fetchGeocoding.isLoading ? (
           <Loading />
         ) : !fetchGeocoding.isLoading &&
           fetchGeocoding.data &&
           fetchGeocoding.data.length === 0 ? (
-          <ErrorCard errorMessage="No result found" />
+          <ErrorCard data-testid="error-state" errorMessage="No result found" />
         ) : null}
       </div>
 
-      {fetchCurrentWeather.isFetching && <Loading />}
+      {fetchCurrentWeather.isFetching && (
+        <Loading data-testid="loading-state" />
+      )}
       {fetchCurrentWeather.isError && (
-        <ErrorCard errorMessage="Error fetching current weather data" />
+        <ErrorCard
+          data-testid="error-state"
+          errorMessage="Error fetching current weather data"
+        />
       )}
       {fetchCurrentWeather.data && (
         <>
-          <MainBoard data={fetchCurrentWeather.data} />
+          <MainBoard data-testid="main-board" data={fetchCurrentWeather.data} />
           <div className="mt-6">
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
               {currentWeatherAttributeList.map((title, index) => (
                 <BoxCard
+                  data-testid="main-board"
                   key={index}
                   title={title}
                   data={fetchCurrentWeather.data}
@@ -120,9 +134,14 @@ function Dashboard() {
         </>
       )}
 
-      {fetchWeatherForecast.isFetching && <Loading />}
+      {fetchWeatherForecast.isFetching && (
+        <Loading data-testid="loading-state" />
+      )}
       {fetchWeatherForecast.isError && (
-        <ErrorCard errorMessage="Error fetching weather forecast" />
+        <ErrorCard
+          data-testid="error-state"
+          errorMessage="Error fetching weather forecast"
+        />
       )}
 
       {fetchWeatherForecast.data && (

@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from "prop-types";
 
 BoxCard.propTypes = {
@@ -44,7 +45,7 @@ function BoxCard({ title, data }) {
       break;
   }
   return (
-    <div className="bg-[#ECF3F8] rounded-3xl">
+    <div data-testid="box-card" className="bg-[#ECF3F8] rounded-3xl">
       <div className="flex p-6 justify-between items-center ">
         <div className="">
           <p className="text-black text-xl">{title}</p>
