@@ -17,14 +17,6 @@ export default {
           200: "#4D4D4D",
         },
       },
-      backgroundImage: (theme) => ({
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(var(--tw-gradient-stops))",
-      }),
-      gradientColorStops: (theme) => ({
-        primary: "#23E1F1",
-        secondary: "#089BD1",
-      }),
     },
   },
   plugins: [],
