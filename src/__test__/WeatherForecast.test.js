@@ -32,7 +32,7 @@ describe("WeatherForecast", () => {
     expect(weatherIcon).toBeInTheDocument();
     expect(weatherIcon).toHaveAttribute(
       "src",
-      "http://openweathermap.org/img/wn/10d.png"
+      "https://openweathermap.org/img/wn/10d.png"
     );
   });
 });

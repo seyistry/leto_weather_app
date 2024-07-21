@@ -37,7 +37,7 @@ function WeatherForecast({ data }) {
       </div>
       <div className="bg-primary-200 bg-opacity-40 flex justify-center items-center rounded-3xl h-[100px] w-[100px]">
         <img
-          src={`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
+          src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
           alt="weather icon"
           className="w-20 h-20"
         />

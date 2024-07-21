@@ -76,7 +76,7 @@ function MainBoard({ data }) {
           <p className="p-4 text-primary font-bold text-xl">Cloud feels</p>
           <div className="flex items-center justify-center">
             <img
-              src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
+              src={`https://openweathermap.org/img/w/${data.weather[0].icon}.png`}
               alt=""
               className="w-40 h-40"
             />
